@@ -1,0 +1,36 @@
+﻿<div class="videoUpload">
+	<form #videoUploadForm="ngForm" (ngSubmit)="uploadVideo()">
+		<h2>Upload video</h2>
+		<div class="row">
+			<div class="col-md-12">
+				<label>Video name:</label>
+				<input class="form-control" type="text" [(ngModel)]="model.VideoName" name="videoName" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>Video gender:</label>
+				<ng-multiselect-dropdown name="genders"
+										 [placeholder]="'Select gender'"
+										 [data]="items"
+										 [(ngModel)]="model.VideoGenders"
+										 [settings]="dropdownSettings"
+										 (onSelect)="onItemSelect($event)"
+										 (onSelectAll)="onSelectAll($event)">
+				</ng-multiselect-dropdown>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<label>Select file:</label>
+				<input class="form-control" name="videoUpload" (change)=fileEvent($event) type="file" />
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-12">
+				<button type="submit">Submit</button>
+			</div>
+		</div>
+	</form>
+</div>
