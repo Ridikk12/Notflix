@@ -30,6 +30,11 @@ namespace Notlifx.Data.Repositories
 			return _dbContext.Videos.Where(x=> ids.Contains(x.Id)).ToListAsync();
 		}
 
+		public Task<List<Video>> GetAll()
+		{
+			return _dbContext.Videos.ToListAsync();
+		}
+
 		public int Save()
 		{
 			return _dbContext.SaveChanges();

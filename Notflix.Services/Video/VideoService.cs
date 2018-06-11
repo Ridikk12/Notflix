@@ -31,15 +31,27 @@ namespace Notflix.Services
 		public async Task UploadVideo(VideoUploadDto videoDto, string path)
 		{
 
-			string fullPath = path + videoDto.VideoName + ".mp4";
+			string fullPath = path + '\\' + videoDto.VideoName + ".mp4";
+			Video newVideo = CreateNewVideo(videoDto, fullPath);
 
-			Video newVideo = new Video();
-			newVideo.Id = Guid.NewGuid();
-			newVideo.Version = 0;
-			newVideo.VideoName = videoDto.VideoName;
-			newVideo.VideoUrl = fullPath;
+			await _videoRepository.Add(newVideo);
+			var result = _videoRepository.Save();
 
-		
+			using (var stream = new FileStream(fullPath, FileMode.Create))
+			{
+				await videoDto.VideoFile.CopyToAsync(stream);
+			}
+		}
+
+		private static Video CreateNewVideo(VideoUploadDto videoDto, string fullPath)
+		{
+			Video newVideo = new Video
+			{
+				Id = Guid.NewGuid(),
+				Version = 0,
+				VideoName = videoDto.VideoName,
+				VideoUrl = fullPath
+			};
 
 			foreach (var gender in videoDto.VideoGenders)
 			{
@@ -47,16 +59,21 @@ namespace Notflix.Services
 					new Domain.Videos.VideoGender { Id = Guid.NewGuid(), VideoId = newVideo.Id, GenderId = gender.Id, CreateDate = DateTime.Now, Version = 0, CreateBy = "Admin" });
 			}
 
-
-			await _videoRepository.Add(newVideo);
-			var result = _videoRepository.Save();
-
-			using (var stream = new FileStream(path, FileMode.Create))
-			{
-				await videoDto.VideoFile.CopyToAsync(stream);
-			}
+			return newVideo;
 		}
 
+		public async Task<List<VideoDto>> GetAllVideo()
+		{
+			List<Video> videos = await _videoRepository.GetAll();
+			var dto = new List<VideoDto>();
 
+			foreach (var video in videos)
+			{
+				dto.Add(new VideoDto
+				{ Id = video.Id, VideoName = video.VideoName, VideoPrice = video.VideoPrice, VideoUrl = video.VideoUrl });
+			}
+
+			return dto;
+		}
 	}
 }

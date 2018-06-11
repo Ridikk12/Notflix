@@ -8,5 +8,6 @@ namespace Notflix.Services
 	{
 		Task<List<VideoGendersDto>> GetGenders();
 		Task UploadVideo(VideoUploadDto videoDto, string path);
+		Task<List<VideoDto>> GetAllVideo();
 	}
 }

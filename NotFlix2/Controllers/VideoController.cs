@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Notflix.Services;
 using NotFlix.DataTransferObjects.Video;
+using NotFlix2.ViewModels.Shared;
 using NotFlix2.ViewModels.VideoViewModels;
 
 namespace NotFlix2.Controllers
@@ -63,23 +64,36 @@ namespace NotFlix2.Controllers
 					var uploadFolder = _configuration["UploadFolder:Video"];
 					var uploadPath = Path.Combine(environment.WebRootPath, uploadFolder);
 
-					VideoUploadDto dto = new VideoUploadDto();
-					dto.VideoFile = viewModel.VideoFile;
-					dto.VideoName = viewModel.VideoName;
-					foreach (var gender in viewModel.VideoGenders)
-					{
-						dto.VideoGenders.Add(new VideoGendersDto() { GenderName = gender.GenderName, Id = gender.Id });
-					}
+					if (!Directory.Exists(uploadPath))
+						Directory.CreateDirectory(uploadPath);
+
+					VideoUploadDto dto = MapToDto(viewModel);
 
 					await _videoService.UploadVideo(dto, uploadPath);
 				}
 			}
-			catch(Exception Ex)
+			catch (Exception Ex)
 			{
-				Json(false);
+				return Json(new ResultViewModel { IsSucces = false, Message = Ex.Message });
 			}
 
-			 return Json(true);
+			return Json(new ResultViewModel { IsSucces = true, Message = "File uploaded"});
+		}
+
+		private static VideoUploadDto MapToDto(VideoUploadViewModel viewModel)
+		{
+			VideoUploadDto dto = new VideoUploadDto
+			{
+				VideoFile = viewModel.VideoFile,
+				VideoName = viewModel.VideoName
+			};
+
+			foreach (var gender in viewModel.VideoGenders)
+			{
+				dto.VideoGenders.Add(new VideoGendersDto() { GenderName = gender.GenderName, Id = gender.Id });
+			}
+
+			return dto;
 		}
 	}
 
