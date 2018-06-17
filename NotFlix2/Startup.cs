@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Serialization;
 using Notflix.Core.Helpers;
 using Notflix.Services;
 using Notflix.Services.User;
@@ -56,7 +57,6 @@ namespace NotFlix2
 				app.UseExceptionHandler("/Home/Error");
 			}
 
-			app.UseStaticFiles();
 			app.UseAuthentication();
 
 			app.UseMvc(routes =>
@@ -69,11 +69,6 @@ namespace NotFlix2
 					name: "spa-fallback",
 					defaults: new { controller = "Home", action = "Index" });
 			});
-
-			using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-			{
-				scope.ServiceProvider.GetRequiredService<NotflixDbContext>().Database.Migrate();
-			}
 
 
 		}

@@ -64,16 +64,28 @@ namespace Notflix.Services
 
 		public async Task<List<VideoDto>> GetAllVideo()
 		{
-			List<Video> videos = await _videoRepository.GetAll();
-			var dto = new List<VideoDto>();
-
-			foreach (var video in videos)
+			var dtos = new List<VideoDto>();
+			try
 			{
-				dto.Add(new VideoDto
-				{ Id = video.Id, VideoName = video.VideoName, VideoPrice = video.VideoPrice, VideoUrl = video.VideoUrl });
-			}
+				List<Video> videos = await _videoRepository.GetAll();
+				
 
-			return dto;
+				foreach (var video in videos)
+				{
+					var gender = video.Genders.FirstOrDefault();
+					string genderStr = "";
+					if (gender != null)
+						genderStr = gender.Gender.GenderName;
+
+					dtos.Add(new VideoDto
+					{ Id = video.Id, VideoName = video.VideoName, VideoPrice = video.VideoPrice, VideoUrl = video.VideoUrl, VideoGender = genderStr });
+				}
+			}
+			catch(Exception Ex)
+			{
+				var  tt = Ex;
+			}
+			return dtos;
 		}
 	}
 }

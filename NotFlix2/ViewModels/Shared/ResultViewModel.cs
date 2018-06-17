@@ -9,7 +9,5 @@ namespace NotFlix2.ViewModels.Shared
     {
 		public string Message { get; set; }
 		public bool IsSucces { get; set; }
-
-
     }
 }

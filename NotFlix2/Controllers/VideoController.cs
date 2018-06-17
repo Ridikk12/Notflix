@@ -95,6 +95,13 @@ namespace NotFlix2.Controllers
 
 			return dto;
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetUserVideos()
+		{
+			return Json(await _videoService.GetAllVideo());
+		}
+
 	}
 
 }

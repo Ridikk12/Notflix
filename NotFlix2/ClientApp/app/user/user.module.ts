@@ -3,18 +3,18 @@ import { AuthGuard } from '../shared/services/authGuard.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
 import { RouterModule } from '@angular/router';
-import { AdminRoutingModule } from './routes/admin-routing.module';
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { VideoUploadComponent } from './upload/video-upload.component';
-import { VideoAdmin } from './models/videoAdmin.model';
+
+import { UserRoutingModule } from './routing/user-routing.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { VideoUserComponent } from './components/video/video.component';
+
 
 
 
 
 @NgModule({
-	declarations: [VideoUploadComponent]
+	declarations: [DashboardComponent, VideoUserComponent]
 	,
 	providers: [
 
@@ -23,11 +23,8 @@ import { VideoAdmin } from './models/videoAdmin.model';
 		CommonModule,
 		FormsModule,
 		HttpModule,
-		AdminRoutingModule,
-		NgMultiSelectDropDownModule.forRoot()
-
-		
+		UserRoutingModule
 	]
 })
-export class AdminModule {
+export class UserModule {
 }

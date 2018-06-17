@@ -8,5 +8,6 @@ namespace NotFlix.DataTransferObjects.Video
 		public string VideoName { get; set; }
 		public string VideoUrl { get; set; }
 		public string VideoPrice { get; set; }
+		public string VideoGender { get; set; }
 	}
 }

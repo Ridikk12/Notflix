@@ -32,7 +32,8 @@ namespace Notlifx.Data.Repositories
 
 		public Task<List<Video>> GetAll()
 		{
-			return _dbContext.Videos.ToListAsync();
+			return _dbContext.Videos.Include(x=> x.Genders)
+				.ThenInclude(x=> x.Gender).ToListAsync();
 		}
 
 		public int Save()

@@ -15,6 +15,7 @@ import { AuthGuard } from './shared/services/authGuard.service';
 import { AuthenticationService } from './shared/services/authentication.service';
 
 import { AdminModule } from './admin/admin.module';
+import { UserModule } from './user/user.module';
 
 
 
@@ -35,6 +36,7 @@ import { AdminModule } from './admin/admin.module';
 		FormsModule,
 		AuthenticationModule,
 		AdminModule,
+		UserModule,
 		RoutingModule,
 	],
 	exports: [

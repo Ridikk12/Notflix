@@ -1,7 +1,7 @@
 ﻿//routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { routes } from './admin.routes';
+import { routes } from './user.routes';
 
 
 @NgModule({
@@ -14,4 +14,4 @@ import { routes } from './admin.routes';
 		RouterModule
 	]
 })
-export class AdminRoutingModule { }
+export class UserRoutingModule { }
