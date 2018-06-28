@@ -1,4 +1,4 @@
-﻿<div class="videoUpload">
+﻿<div class="videoUpload container">
 	<form #videoUploadForm="ngForm" (ngSubmit)="uploadVideo()">
 		<h2>Upload video</h2>
 		<div class="row">
@@ -33,4 +33,10 @@
 			</div>
 		</div>
 	</form>
+
+
+    <div *ngIf="uploaded">
+        Video upload complete.
+    </div>
+
 </div>

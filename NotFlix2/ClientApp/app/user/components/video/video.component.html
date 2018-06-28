@@ -1,5 +1,5 @@
 ﻿
-<img class="img-style" src="../../../../../wwwroot/video.png.png" />
+<img class="img-style" src="../../../../../wwwroot/video.png.png" (click)="toVideoDetails(videoModel.id)" />
 <p>Name: {{videoModel.videoName}}</p>
 <p>
 	Gender: {{videoModel.videoGender}}
@@ -7,8 +7,6 @@
 
 
 <style>
-
-
 	.img-style {
 		width: 80%;
 	}

@@ -1,26 +1,29 @@
-﻿<h2>Register new user</h2>
-<div>
-	<form #registerForm="ngForm" (ngSubmit)="register()" class="loginForm">
-		<div class="form-group">
-			<label>Email:</label>
-			<input type="text" [(ngModel)]="model.Email" name="email" id="email" class="form-control" #emailRegModel="ngModel" required />
-			<div *ngIf="emailRegModel.errors && (emailRegModel.dirty || emailRegModel.touched)" class="alert alert-danger">
-				<div [hidden]="!emailRegModel.errors.required">
-					Email is required
-				</div>
-			</div>
-			<label>Password:</label>
-			<input type="password" [(ngModel)]="model.Password" name="password" id="password" class="form-control" #passwordRegModel="ngModel" required />
-			<div *ngIf="passwordRegModel.errors && (passwordRegModel.dirty || passwordRegModel.touched)" class="alert alert-danger">
-				<div [hidden]="!passwordRegModel.errors.required">
-					Password is required
-				</div>
-			</div>
-		</div>
-		<button type="submit" [disabled]="!registerForm.valid" class="btn btn-default">Register</button>
-		<button type="button" [routerLink]="['/authentication/login']" class="btn btn-default">Return to login page</button>
-	</form>
-</div>
-<div *ngIf="!registerSucced" class="alert-warning">
-	User with this mail address exist. Choose other email address.
+﻿
+<div class="container authenticationForm">
+    <h1>Register new user</h1>
+    <form #registerForm="ngForm" (ngSubmit)="register()">
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="text" [(ngModel)]="model.Email" name="email" id="email" class="form-control" #emailRegModel="ngModel" required />
+            <div *ngIf="emailRegModel.errors && (emailRegModel.dirty || emailRegModel.touched)" class="alert alert-danger">
+                <div [hidden]="!emailRegModel.errors.required">
+                    Email is required
+                </div>
+            </div>
+            <label>Password:</label>
+            <input type="password" [(ngModel)]="model.Password" name="password" id="password" class="form-control" #passwordRegModel="ngModel" required />
+            <div *ngIf="passwordRegModel.errors && (passwordRegModel.dirty || passwordRegModel.touched)" class="alert alert-danger">
+                <div [hidden]="!passwordRegModel.errors.required">
+                    Password is required
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <button type="submit" [disabled]="!registerForm.valid" class="btn btn-default">Register</button>
+            <button type="button" [routerLink]="['/authentication/login']" class="btn btn-default">Return to login page</button>
+        </div>
+        <div *ngIf="!registerSucced" class=" validation alert-warning">
+            User with this mail address exist. Choose other email address.
+        </div>
+    </form>
 </div>

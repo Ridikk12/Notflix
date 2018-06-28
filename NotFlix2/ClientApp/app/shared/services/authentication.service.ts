@@ -30,6 +30,7 @@ export class AuthenticationService {
 				localStorage.removeItem('currentUser');
 				observer.next(true);
 			}
+
 			observer.next(false);
 	
 		});

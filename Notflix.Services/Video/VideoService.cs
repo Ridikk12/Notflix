@@ -87,5 +87,17 @@ namespace Notflix.Services
 			}
 			return dtos;
 		}
-	}
+
+        public async Task<VideoDto> GetVideo(Guid videoId)
+        {
+            var video = await _videoRepository.Get(videoId);
+            return new VideoDto
+            {   Id = video.Id,
+                VideoGender = video.Genders.First().Gender.GenderName,
+                VideoName = video.VideoName,
+                VideoPrice = video.VideoPrice
+            };
+
+        }
+    }
 }

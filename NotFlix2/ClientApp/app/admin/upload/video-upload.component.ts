@@ -1,7 +1,9 @@
-﻿import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { VideoAdmin } from '../models/videoAdmin.model';
 import { VideoAdminService } from '../services/videoAdmin.service';
+
+
 
 
 @Component({
@@ -15,17 +17,21 @@ export class VideoUploadComponent implements OnInit {
 	
 	}
 
-	public model: VideoAdmin;
+	@ViewChild("videoUploadForm") videoUploadForm: any;
+
+    public model: VideoAdmin = new VideoAdmin;
 	dropdownList = [];
 	selectedItems = [];
 	dropdownSettings = {};
 	items = [];
+	uploaded = false;
 	
 
 	ngOnInit() {
 
 		this.videoService.getVideoGender().subscribe(x => {
 			this.items = x;
+		
 		});
 
 		this.model = new VideoAdmin();
@@ -43,6 +49,8 @@ export class VideoUploadComponent implements OnInit {
 
 	uploadVideo() {
 		this.videoService.createNewVideo(this.model).subscribe(result => {
+			this.uploaded = true;
+			this.videoUploadForm.reset();
 		});
 	}
 

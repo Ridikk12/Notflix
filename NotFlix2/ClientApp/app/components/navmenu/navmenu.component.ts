@@ -19,7 +19,7 @@ export class NavMenuComponent  {
 	logOut() {
 		this.authService.logOut().subscribe(value => {
 			if (value == true)
-				this.router.navigate(['authentication/login']);
+				this.router.navigate(['']);
 
 		});
 	}

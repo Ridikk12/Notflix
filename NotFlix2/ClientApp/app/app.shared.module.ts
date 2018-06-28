@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
 import { RoutingModule } from './routing/routing.module.ts';
 
 import { AuthenticationModule } from './authentication/authentication.module';
@@ -22,8 +21,7 @@ import { UserModule } from './user/user.module';
 @NgModule({
 	declarations: [
 		AppComponent,
-		NavMenuComponent,
-		HomeComponent
+		NavMenuComponent
 	],
 	providers: [
 		AuthenticationService,

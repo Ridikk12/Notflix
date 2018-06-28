@@ -1,3 +1,14 @@
-﻿.loginForm {
-	width: 40%;
+﻿.authenticationForm {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+h1 {
+    text-align: center;
+}
+
+.validation {
+    width: 50%;
 }

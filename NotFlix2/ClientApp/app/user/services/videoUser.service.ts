@@ -12,7 +12,13 @@ export class VideoUserService {
 	}
 
 	getAvailableVideo() {
-		return this.http.get('Video/GetUserVideos').map(x => x.json() as Array<VideoUser>);
+		return this.http.get('Video/GetUserVideos').map(
+			x => x.json() as Array<VideoUser>);
+	}
+
+	getVideoDetails(videoId: AAGUID) {
+		return this.http.get('Video/GetVideoDetails', videoId).map(x => x.json() as VideoUser);
+
 	}
 
 }

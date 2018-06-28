@@ -11,11 +11,14 @@ import { VideoUser } from '../../models/VideoUser';
 	providers: [VideoUserService]
 })
 export class VideoUserComponent {
-	constructor(private _videoService: VideoUserService) {
+	constructor(private _videoService: VideoUserService, private router: Router) {
 		
 	}
 
 	@Input()
 	videoModel: VideoUser = new VideoUser;
 
+	toVideoDetails(videoId: string) {
+		this.router.navigate(["/video-details", videoId]);
+	}
 }
