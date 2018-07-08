@@ -11,9 +11,10 @@ using System;
 namespace Notlifx.Data.Migrations
 {
     [DbContext(typeof(NotflixDbContext))]
-    partial class NotflixDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180708081627_Video_Table_Update")]
+    partial class Video_Table_Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

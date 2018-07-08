@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,9 @@ namespace NotFlix2
 				try
 				{
 					var context = services.GetRequiredService<NotflixDbContext>();
-					DbInitializer.Initialize(context);
+                    context.Database.Migrate();
+                    DbInitializer.Initialize(context);
+                  
 				}
 				catch (Exception ex)
 				{

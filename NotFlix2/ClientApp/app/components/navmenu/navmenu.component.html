@@ -8,25 +8,23 @@
                 <span class='icon-bar'></span>
             </button>
             <a class='navbar-brand' [routerLink]="['/dashboard']">NotFlix2</a>
+            <div style="color:white; margin-left:15px">Welcome {{getUserName()}}</div>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse'>
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/dashboard']">
-                        <span class='glyphicon glyphicon-th-list'></span> Dashboard
+                        <span class='glyphicon glyphicon-home'></span> Dashboard
                     </a>
                 </li>
-                <li *ngIf="!isLoggedIn()" [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/authentication/login']">
-                        <span class='glyphicon glyphicon-th-list'></span> Login
-                    </a>
-                </li>
-                <li [routerLinkActive]="['link-active']">
+                <li *ngIf="isAdmin()" [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/admin/upload']">
-                        <span class='glyphicon glyphicon-th-list'></span> Upload
+                        <span class='glyphicon glyphicon-plus'></span> Upload
                     </a>
                 </li>
+            </ul>
+            <ul id="logout_sidebar_button" class="nav navbar-nav">
                 <li [routerLinkActive]="['link-active']">
                     <a (click)="logOut()">
                         <span class='glyphicon glyphicon-th-list'></span> LogOut
@@ -36,3 +34,13 @@
         </div>
     </div>
 </div>
+
+<style>
+    #logout_sidebar_button {
+        position: absolute;
+        display: inline-block;
+        bottom: 0;
+        left: 15px;
+        cursor: pointer;
+    }
+</style>

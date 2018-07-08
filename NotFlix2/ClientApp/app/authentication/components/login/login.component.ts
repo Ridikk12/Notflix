@@ -21,10 +21,11 @@ export class LoginComponent {
 
 	logIn() {
 		this.authService.logIn(this.email, this.password).subscribe(result => {
-			if (result == true)
+			if (result.isLogged == true)
 				this.router.navigate(['/home']);
 			else
 				this.loginSucced = false;
+
 		});
 	}
 

@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="User\UserDto.cs" />
     <Compile Include="Video\VideoDto.cs" />
     <Compile Include="Video\VideoGendersDto.cs" />
     <Compile Include="Video\VideoUploadDto.cs" />

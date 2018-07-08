@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 
 @Component({
@@ -12,8 +12,13 @@ export class AppComponent {
 		return this.authService.isLoggedIn();
 	}
 
-	constructor(private authService: AuthenticationService) {
+	@HostListener("window:onbeforeunload", ["$event"])
+	clearLocalStorage(event: any) {
+		localStorage.clear();
+	}
 
+
+	constructor(private authService: AuthenticationService) {
 	}
 	
 	

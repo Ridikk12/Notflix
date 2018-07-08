@@ -1,42 +1,42 @@
 ﻿<div class="videoUpload container">
-	<form #videoUploadForm="ngForm" (ngSubmit)="uploadVideo()">
-		<h2>Upload video</h2>
-		<div class="row">
-			<div class="col-md-12">
-				<label>Video name:</label>
-				<input class="form-control" type="text" [(ngModel)]="model.VideoName" name="videoName" />
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<label>Video gender:</label>
-				<ng-multiselect-dropdown name="genders"
-										 [placeholder]="'Select gender'"
-										 [data]="items"
-										 [(ngModel)]="model.VideoGenders"
-										 [settings]="dropdownSettings"
-										 (onSelect)="onItemSelect($event)"
-										 (onSelectAll)="onSelectAll($event)">
-				</ng-multiselect-dropdown>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<label>Select file:</label>
-				<input class="form-control" name="videoUpload" (change)=fileEvent($event) type="file" />
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col-md-12">
-				<button type="submit">Submit</button>
-			</div>
-		</div>
-	</form>
-
-
-    <div *ngIf="uploaded">
-        Video upload complete.
-    </div>
-
+    <h2>Upload video</h2>
+    <form #videoUploadForm="ngForm" (ngSubmit)="uploadVideo()">
+        <div class="form-group">
+            <label>Video name:</label>
+            <input class="form-control" type="text" [(ngModel)]="model.VideoName" name="videoName" />
+        </div>
+        <div class="form-group">
+            <label>Video gender:</label>
+            <ng-multiselect-dropdown name="genders"
+                                     [placeholder]="'Select gender'"
+                                     [data]="items"
+                                     [(ngModel)]="model.VideoGenders"
+                                     [settings]="dropdownSettings"
+                                     (onSelect)="onItemSelect($event)"
+                                     (onSelectAll)="onSelectAll($event)">
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group">
+            <label for="comment">Description:</label>
+            <textarea class="form-control" rows="5" id="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Select file:</label>
+            <input class="form-control" name="videoUpload" (change)=fileEvent($event) type="file" />
+        </div>
+        <div class="buttons-right">
+            <button class="btn btn-default" type="submit">Upload video</button>
+        </div>
+            <div  *ngIf="uploaded" class="alert alert-info" style="margin-top:10px">
+            <span>Video upload complete.</span>
+        </div>
+    </form>
 </div>
+
+<style>
+    .buttons-right {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    } 
+</style>

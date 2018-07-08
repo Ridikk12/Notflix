@@ -1,20 +1,5 @@
 ﻿<div class="parent">
-	<div class="child" *ngFor="let video of videos">
-		<video-user [videoModel]="video"></video-user>
-	</div>
+    <div class="child" ngMo *ngFor="let video of videos">
+        <video-user [videoModel]="video"></video-user>
+    </div>
 </div>
-
-<style>
-	.parent {
-		display: flex;
-		flex-flow: row wrap;
-		align-content: space-between;
-		padding:10px;
-	}
-
-	.child {
-		padding-bottom: 20px;
-		width: 25%;
-	}
-
-</style>

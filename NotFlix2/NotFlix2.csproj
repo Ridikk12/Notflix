@@ -28,11 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Notflix.Core\Notflix.Core.csproj" />
     <ProjectReference Include="..\Notflix.Services\Notflix.Services.csproj" />
     <ProjectReference Include="..\Notlifx.Data\Notlifx.Data.csproj" />
   </ItemGroup>

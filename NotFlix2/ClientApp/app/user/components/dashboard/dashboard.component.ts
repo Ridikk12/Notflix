@@ -9,6 +9,7 @@ import { VideoUserComponent } from '../video/video.component';
 @Component({
 	selector: 'dashboard',
 	templateUrl: './dashboard.component.html',
+	styleUrls: ['./dashboard.component.css'],
 	providers: [VideoUserService]
 })
 export class DashboardComponent {

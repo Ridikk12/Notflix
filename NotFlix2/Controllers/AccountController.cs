@@ -3,88 +3,89 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Notflix.Services.User.Interfaces;
+using NotFlix.DataTransferObjects.User;
 using NotFlix2.ViewModels.AccountViewModels;
 
 namespace NotFlix2.Controllers
 {
 
-	[AllowAnonymous]
-	public class AccountController : Controller
-	{
-		private readonly IUserAccountService _userAccountService;
-		public AccountController(IUserAccountService userAccountService)
-		{
-			_userAccountService = userAccountService;
-		}
+    [AllowAnonymous]
+    public class AccountController : Controller
+    {
+        private readonly IUserAccountService _userAccountService;
+        private readonly IMapper _mapper;
+        public AccountController(IUserAccountService userAccountService, IMapper mapper)
+        {
+            _userAccountService = userAccountService;
+            _mapper = mapper;
+        }
 
-		[HttpPost]
-		public async Task<IActionResult> Login([FromBody]LoginViewModel viewModel)
-		{
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody]LoginViewModel viewModel)
+        {
+            LoginResultViewModel result = new LoginResultViewModel();
 
-			bool isLogged = await _userAccountService.Login(viewModel.Email, viewModel.Password);
-			if (isLogged)
-			{
+            UserDto user = await _userAccountService.Login(viewModel.Email, viewModel.Password);
+            if (user != null)
+            {
+                var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name,viewModel.Email),
+                new Claim(ClaimTypes.Role, "User"),
+            };
 
-				var claims = new List<Claim>
-			{
-				new Claim(ClaimTypes.Name,viewModel.Email),
-				new Claim(ClaimTypes.Role, "User"),
-			};
+                var claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var authProperties = new AuthenticationProperties();
 
-				var claimsIdentity = new ClaimsIdentity(
-					claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                result = PrepareUserViemModel(user, claims);
 
-				var authProperties = new AuthenticationProperties
-				{
-					//AllowRefresh = <bool>,
-					// Refreshing the authentication session should be allowed.
+                await HttpContext.SignInAsync(
+             CookieAuthenticationDefaults.AuthenticationScheme,
+             new ClaimsPrincipal(claimsIdentity),
+             authProperties);
 
-					//ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),
-					// The time at which the authentication ticket expires. A 
-					// value set here overrides the ExpireTimeSpan option of 
-					// CookieAuthenticationOptions set with AddCookie.
+                return Json(result);
+            }
 
-					//IsPersistent = true,
-					// Whether the authentication session is persisted across 
-					// multiple requests. Required when setting the 
-					// ExpireTimeSpan option of CookieAuthenticationOptions 
-					// set with AddCookie. Also required when setting 
-					// ExpiresUtc.
+            result.Email = viewModel.Email;
+            result.IsLogged = false;
 
-					//IssuedUtc = <DateTimeOffset>,
-					// The time at which the authentication ticket was issued.
 
-					//RedirectUri = <string>
+            return Json(result);
+        }
 
-				};
+        private LoginResultViewModel PrepareUserViemModel(UserDto user, List<Claim> claims)
+        {
+            LoginResultViewModel result = _mapper.Map<LoginResultViewModel>(user);
+            result.IsLogged = true;
+            if (user.IsAdmin)
+            {
+                result.Roles.Add("Admin");
+                claims.Add(new Claim(ClaimTypes.Role, "Admin"));
+            }
+            result.Roles.Add("User");
+            return result;
+        }
 
-				await HttpContext.SignInAsync(
-					CookieAuthenticationDefaults.AuthenticationScheme,
-					new ClaimsPrincipal(claimsIdentity),
-					authProperties);
+        [HttpPost]
+        public IActionResult LogOut()
+        {
+            return null;
+        }
 
-				return Json(true);
-			}
-			return Json(false);
-		}
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
+        {
 
-		[HttpPost]
-		public IActionResult LogOut()
-		{
-			return null;
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Register([FromBody]RegisterViewModel model)
-		{
-
-			var result = await _userAccountService.RegisterUser(model.Email, model.Password);
-			return Json(new { registerSucced = result  });
-		}
-	}
+            var result = await _userAccountService.RegisterUser(model.Email, model.Password);
+            return Json(new { registerSucced = result });
+        }
+    }
 }

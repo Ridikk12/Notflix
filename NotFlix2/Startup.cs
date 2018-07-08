@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,18 +6,18 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
 using Notflix.Core.Helpers;
 using Notflix.Services;
 using Notflix.Services.User;
 using Notflix.Services.User.Interfaces;
+using NotFlix2.Maps;
 using Notlifx.Data;
 using Notlifx.Data.Repositories;
 using Notlifx.Data.Repositories.Interfaces;
 
 namespace NotFlix2
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -36,7 +37,8 @@ namespace NotFlix2
 			services.AddDbContext<NotflixDbContext>(options =>
 						options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			RegisterDependency(services);
+            services.AddAutoMapper(typeof(Startup),typeof(UserAccountService));
+            RegisterDependency(services);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +84,7 @@ namespace NotFlix2
 			service.AddScoped<IVideoService, VideoService>();
 			service.AddScoped<IGenderRepository, GenderRepository>();
 			service.AddScoped<IVideoRepository, VideoRepository>();
+           
 
 
 		}

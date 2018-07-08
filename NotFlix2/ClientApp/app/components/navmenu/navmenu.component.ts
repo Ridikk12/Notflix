@@ -16,12 +16,20 @@ export class NavMenuComponent  {
 		return this.authService.isLoggedIn();
 	}
 
+	isAdmin() {
+		return this.authService.isAdmin();
+	}
+
 	logOut() {
 		this.authService.logOut().subscribe(value => {
 			if (value == true)
-				this.router.navigate(['']);
+				this.router.navigate(['authentication/login']);
 
 		});
+	}
+
+	getUserName() {
+		return this.authService.getUserName();
 	}
 
 }
