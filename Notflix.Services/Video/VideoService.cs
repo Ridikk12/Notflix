@@ -90,13 +90,22 @@ namespace Notflix.Services
 
         public async Task<VideoDto> GetVideo(Guid videoId)
         {
-            var video = await _videoRepository.Get(videoId);
-            return new VideoDto
-            {   Id = video.Id,
-                VideoGender = video.Genders.First().Gender.GenderName,
-                VideoName = video.VideoName,
-                VideoPrice = video.VideoPrice
-            };
+            try
+            {
+                var video = await _videoRepository.Get(videoId);
+                return new VideoDto
+                {
+                    Id = video.Id,
+                    VideoGender = video.Genders.FirstOrDefault().Gender.GenderName,
+                    VideoName = video.VideoName,
+                    VideoPrice = video.VideoPrice,
+                    VideoUrl = video.VideoUrl
+                };
+            }
+            catch(Exception ex)
+            {
+                return new VideoDto();
+            }
 
         }
     }

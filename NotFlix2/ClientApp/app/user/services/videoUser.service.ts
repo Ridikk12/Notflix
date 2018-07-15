@@ -17,7 +17,9 @@ export class VideoUserService {
 	}
 
 	getVideoDetails(videoId: AAGUID) {
-		return this.http.get('Video/GetVideoDetails', videoId).map(x => x.json() as VideoUser);
+		return this.http.get('Video/GetVideoDetails?videoId=' + videoId)
+			.map(
+				(x: any) => x.json() as VideoUser);
 
 	}
 

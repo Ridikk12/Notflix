@@ -32,4 +32,10 @@ export class NavMenuComponent  {
 		return this.authService.getUserName();
 	}
 
+	showMenu: boolean = true;
+
+	toogleMenu() {
+		this.showMenu = !this.showMenu;
+	}
+
 }

@@ -9,6 +9,7 @@ import { UserRoutingModule } from './routing/user-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { VideoUserComponent } from './components/video/video.component';
 import { VideoDetailsComponent } from './components/video/video-details.component';
+import { VideoUserService } from './services/videoUser.service';
 
 
 
@@ -18,7 +19,7 @@ import { VideoDetailsComponent } from './components/video/video-details.componen
 	declarations: [DashboardComponent, VideoUserComponent, VideoDetailsComponent]
 	,
 	providers: [
-
+		VideoUserService
 	],
 	imports: [
 		CommonModule,

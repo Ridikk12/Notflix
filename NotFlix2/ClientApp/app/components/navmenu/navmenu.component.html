@@ -1,4 +1,4 @@
-<div class='main-nav'>
+<div class='main-nav' *ngIf="showMenu">
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
             <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
@@ -24,6 +24,9 @@
                     </a>
                 </li>
             </ul>
+            <div id="hide_menu_button" (click)="toogleMenu()">
+                <span class="glyphicon glyphicon-backward"></span>
+            </div>
             <ul id="logout_sidebar_button" class="nav navbar-nav">
                 <li [routerLinkActive]="['link-active']">
                     <a (click)="logOut()">
@@ -35,6 +38,9 @@
     </div>
 </div>
 
+
+
+
 <style>
     #logout_sidebar_button {
         position: absolute;
@@ -43,4 +49,21 @@
         left: 15px;
         cursor: pointer;
     }
+
+    #hide_menu_button {
+        position: absolute;
+        display: inline-block;
+        bottom: 50%;
+        left: 15px;
+        cursor: pointer;
+        font-size: 30px;
+        color: white;
+        left: 88%;
+        opacity: 0.4;
+        z-index:10;
+    }
+
+        #hide_menu_button:hover {
+            opacity: 1;
+        }
 </style>

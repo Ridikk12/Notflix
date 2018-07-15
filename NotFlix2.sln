@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notflix.Core", "Notflix.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotFlix.DataTransferObjects", "NotFlix.DataTransferObjects\NotFlix.DataTransferObjects.csproj", "{39D89786-F21D-454A-A388-4DF5FA4AC364}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notflix.Tests", "Tests\Notflix.Tests.csproj", "{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,12 @@ Global
 		{39D89786-F21D-454A-A388-4DF5FA4AC364}.Production|Any CPU.Build.0 = Production|Any CPU
 		{39D89786-F21D-454A-A388-4DF5FA4AC364}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39D89786-F21D-454A-A388-4DF5FA4AC364}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}.Production|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}.Production|Any CPU.Build.0 = Debug|Any CPU
+		{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A8EFAFC-809A-49B7-BE23-7FF4E5351202}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

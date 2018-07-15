@@ -22,7 +22,8 @@ namespace Notlifx.Data.Repositories
 
 		public Task<Video> Get(Guid id)
 		{
-			return _dbContext.Videos.Where(X => X.Id == id).FirstOrDefaultAsync();
+			return _dbContext.Videos.Where(X => X.Id == id).Include(x=> x.Genders)
+                .ThenInclude(x => x.Gender).FirstOrDefaultAsync();
 		}
 
 		public Task<List<Video>> Get(List<Guid> ids)

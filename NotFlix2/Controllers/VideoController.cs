@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +22,19 @@ namespace NotFlix2.Controllers
         private readonly IHostingEnvironment environment;
         private readonly IVideoService _videoService;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
 
 
-        public VideoController(IHostingEnvironment env, IVideoService videoService, IConfiguration configuration)
+        public VideoController(
+            IHostingEnvironment env, 
+            IVideoService videoService, 
+            IConfiguration configuration,
+            IMapper mapper)
         {
             environment = env;
             _videoService = videoService;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -37,7 +44,7 @@ namespace NotFlix2.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Download(string name)
+        public IActionResult Download(string name)
         {
             var memory = new MemoryStream();
 
@@ -102,6 +109,15 @@ namespace NotFlix2.Controllers
         public async Task<IActionResult> GetUserVideos()
         {
             return Json(await _videoService.GetAllVideo());
+        }
+       
+
+        [HttpGet]
+        public async Task<IActionResult> GetVideoDetails(Guid videoId)
+        {
+            VideoDto video = await _videoService.GetVideo(videoId);
+            VideoDetailsViewModel vm = _mapper.Map<VideoDetailsViewModel>(video);
+            return Json(vm);
         }
 
     }

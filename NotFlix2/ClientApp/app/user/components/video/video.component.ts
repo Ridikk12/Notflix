@@ -7,8 +7,7 @@ import { VideoUser } from '../../models/VideoUser';
 
 @Component({
 	selector: 'video-user',
-	templateUrl: './video.component.html',
-	providers: [VideoUserService]
+	templateUrl: './video.component.html'
 })
 export class VideoUserComponent {
 	constructor(private _videoService: VideoUserService, private router: Router) {
